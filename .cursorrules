@@ -1,0 +1,87 @@
+# Minesweeper RL Project Rules
+
+## Project Context
+This is a Reinforcement Learning environment for Minesweeper using Stable Baselines3 (PPO) and Deep Q-Network (DQN) with curriculum learning and MLflow tracking.
+
+## Key Design Decisions
+- **Immediate Rewards**: Every safe reveal gets +15, every mine hit gets -20, wins get +500 (simplified from confusing first-move logic)
+- **Board Sizes**: All use (height, width) format throughout codebase
+- **Environment**: 4-channel state representation with action masking
+- **M1 GPU Support**: Optimized for Apple Silicon with Metal Performance Shaders (MPS)
+- **Cross-Platform Scripts**: Platform-specific scripts in `scripts/windows/`, `scripts/linux/`, `scripts/mac/`
+
+## Cross-Platform Test Compatibility
+- **Test Flexibility**: Script tests adapt to different platforms (Mac/Windows/Linux)
+- **PowerShell Handling**: Tests check for PowerShell availability before using it
+- **Script Validation**: Content-based validation when platform-specific tools unavailable
+- **Permission Handling**: Different permission requirements per platform (executable vs readable)
+- **Output Handling**: Accepts various output methods (echo, write-host, python, source)
+- **Error Handling**: Flexible error handling validation for simple and complex scripts
+
+## Critical Learning Insights
+- **Game Logic is Correct**: Environment randomization and win conditions work perfectly
+- **Reward System Matters**: Immediate rewards (not sparse) are essential for learning
+- **Curriculum Learning**: Realistic win rate thresholds (15%, 12%, 10%, 8%, 5%, 3%, 2%) enable progression
+- **Training Complexity**: Even simple 4x4 boards are challenging for RL agents
+- **Performance**: Use M1 Mac for longer training runs (GPU acceleration)
+- **DQN Transfer Issues**: Model transfer between different board sizes needs attention (size mismatch errors)
+
+## Important Files
+- `src/core/minesweeper_env.py` - Main environment (simplified reward logic)
+- `src/core/train_agent.py` - Training script with curriculum learning
+- `src/core/dqn_agent.py` - DQN agent implementation
+- `src/core/constants.py` - Reward constants
+- `tests/` - 739 comprehensive tests (unit: 537, integration: 78, functional: 112, scripts: 12)
+- `scripts/mac/` - Mac-specific training scripts
+
+## Current Test Status (Latest Session)
+- **Total Tests**: 739 tests in the suite
+- **Unit Tests**: 537 passed (100%)
+- **Integration Tests**: 78 passed (100%)
+- **Functional Tests**: 112 passed (100%)
+- **Script Tests**: 12 passed (100%)
+- **E2E Tests**: 0 tests (empty directory)
+- **Root Level Tests**: 3 failing due to missing wrapper classes (ActionMaskingWrapper, MultiBoardTrainingWrapper)
+
+## Recent DQN Training Success
+- **DQN Agent**: Successfully implemented with Double DQN, Dueling DQN, and Prioritized Replay
+- **Stage 2 Performance**: 24.3% training win rate, 16.6% evaluation win rate
+- **Training Pipeline**: All core functionality working correctly
+- **Environment**: 4-channel state representation working properly
+- **Reward System**: Immediate rewards functioning as expected
+- **Device Detection**: CPU/GPU/MPS detection working correctly
+
+## Current DQN Issues
+- **Transfer Problem**: Model transfer between board sizes fails due to size mismatches
+- **Error**: `size mismatch for fc1.weight: copying a param with shape torch.Size([512, 3200]) from checkpoint, the shape in current model is torch.Size([512, 4608])`
+- **Affected**: Stage 3 progression (4x4 → 6x6 board)
+- **Solution Needed**: Dynamic model architecture or proper transfer learning
+
+## Missing Components (Root Level Test Failures)
+- **ActionMaskingWrapper**: Referenced in root level tests but not implemented in train_agent.py
+- **MultiBoardTrainingWrapper**: Referenced in root level tests but not implemented in train_agent.py
+- **Root Level Tests**: 3 test files failing due to missing imports:
+  - `tests/test_4x4_2mines_difficulty.py`
+  - `tests/test_evaluation_vs_training_debug.py`
+  - `tests/test_multi_board_training.py`
+
+## When Helping
+- Use immediate rewards for all actions (no first-move special cases)
+- Use (height, width) format for board dimensions
+- Check CONTEXT.md for detailed project information
+- Run tests to verify changes work correctly
+- Recommend M1 Mac for intensive training
+- Focus on learning improvements, not game logic bugs
+- Ensure cross-platform compatibility when modifying tests or scripts
+- Note that root level tests need wrapper classes implemented or removed
+- Core functionality (unit, integration, functional, scripts) is fully working
+- DQN agent is functional but has transfer issues between board sizes
+- Priority: Fix DQN transfer issues before continuing curriculum training
+
+## Next Priorities
+1. **Fix DQN Transfer Issues**: Resolve model loading errors between different board sizes
+2. **Extend DQN Training**: Continue curriculum learning with proper model transfer
+3. **Fix Root Level Tests**: Either implement missing wrapper classes or remove obsolete tests
+4. **Visualization**: Add real-time agent visualization tools
+5. **Performance Optimization**: Optimize training for longer runs
+6. **Documentation**: Update documentation with latest DQN results and transfer fixes 
