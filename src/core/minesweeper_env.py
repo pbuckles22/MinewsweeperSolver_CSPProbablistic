@@ -1,6 +1,4 @@
-import gymnasium as gym
 import numpy as np
-from gymnasium import spaces
 import time
 from datetime import datetime
 from collections import deque
@@ -24,7 +22,7 @@ from .constants import (
     DIFFICULTY_LEVELS
 )
 
-class MinesweeperEnv(gym.Env):
+class MinesweeperEnv:
     """
     A Minesweeper environment for reinforcement learning with enhanced state representation and fixed observation/action space for curriculum learning.
     Supports multiple difficulty levels from easy to chaotic.

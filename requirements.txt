@@ -1,0 +1,26 @@
+# Minesweeper CSP & Probabilistic Solver Requirements
+# 
+# This file contains the dependencies needed for CSP and probabilistic approaches.
+# Clean slate without RL complexity.
+
+# Core dependencies
+numpy>=2.3.0
+pygame>=2.6.1
+matplotlib>=3.10.0
+
+# Testing dependencies
+pytest>=8.4.0
+pytest-cov>=6.2.0
+coverage>=7.9.0
+pytest-timeout>=2.4.0
+
+# Platform and system dependencies
+setuptools>=80.9.0
+
+# Optional dependencies (uncomment if needed)
+# wandb>=0.20.0  # Weights & Biases for experiment tracking
+
+# Platform-specific notes:
+# - All platforms: CPU-based computation (no GPU dependencies)
+# - Cross-platform compatibility maintained
+# - No RL framework dependencies

@@ -12,10 +12,6 @@ from src.core.constants import (
     CELL_UNREVEALED,
     CELL_MINE,
     CELL_MINE_HIT,
-    REWARD_FIRST_CASCADE_SAFE, REWARD_FIRST_CASCADE_HIT_MINE,
-    REWARD_SAFE_REVEAL,
-    REWARD_WIN,
-    REWARD_HIT_MINE
 )
 
 def pytest_configure(config):
@@ -28,9 +24,9 @@ def pytest_configure(config):
 def env():
     """Create a test environment."""
     return MinesweeperEnv(
-        max_board_size=4,
-        max_mines=2,
-        initial_board_size=4,
-        initial_mines=2,
-        mine_spacing=1
+        height=4,
+        width=4,
+        num_mines=2
+        
+        
     ) 
