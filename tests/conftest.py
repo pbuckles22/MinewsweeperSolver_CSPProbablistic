@@ -24,9 +24,6 @@ def pytest_configure(config):
 def env():
     """Create a test environment."""
     return MinesweeperEnv(
-        height=4,
-        width=4,
-        num_mines=2
-        
-        
+        initial_board_size=(4, 4),
+        initial_mines=2
     ) 

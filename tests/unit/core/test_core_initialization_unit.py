@@ -34,17 +34,6 @@ def test_invalid_mine_count():
     with pytest.raises(ValueError, match="Mine count cannot exceed board size area"):
         MinesweeperEnv(max_board_size=3, max_mines=10)
 
-def test_invalid_mine_spacing():
-    """Test that invalid mine spacing raises appropriate errors."""
-    # The environment doesn't validate mine spacing, so this test should pass
-    # Test negative mine spacing (should not raise error)
-    env = MinesweeperEnv(mine_spacing=-1)
-    assert env.mine_spacing == -1
-    
-    # Test mine spacing too large for board (should not raise error)
-    env = MinesweeperEnv(max_board_size=3, max_mines=1, mine_spacing=3, initial_board_size=3, initial_mines=1)
-    assert env.mine_spacing == 3
-
 def test_invalid_initial_parameters():
     """Test that invalid initial board size and mine count raise appropriate errors."""
     # Test initial board size greater than max board size
