@@ -1,0 +1,48 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Coverage reports
+.coverage
+htmlcov/
+.coverage.*
+
+# macOS Finder
+.DS_Store
+
+# Editor/IDE files
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+
+# Test artifacts
+test.md
+
+# Log files
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json 
